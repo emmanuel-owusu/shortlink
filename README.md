@@ -1,7 +1,7 @@
 # ShortLink ✨🔗
 [![java-version-badge](https://img.shields.io/badge/Java-21-blue)](https://www.oracle.com/java/technologies/downloads/#java21)
-[![spring-boot-version-badge](https://img.shields.io/badge/Spring_Boot-3.2.5-yellow)](https://spring.io/projects/spring-boot)
-[![license-badge](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![spring-boot-version-badge](https://img.shields.io/badge/Spring_Boot-3.2.5-green)](https://spring.io/projects/spring-boot)
+[![license-badge](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 ## About ShortLink
 ShortLink is a URL shortening service.
@@ -44,14 +44,14 @@ $ curl --get --data-urlencode "url=test-todo" http://localhost:8080/service/shor
 Follow these steps to run the ShortLink URL-shortening service as a Docker container:
 
 ## Built With
+* [Spring Boot 3.2.5 with Spring Web](https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.2.5&packaging=jar&jvmVersion=21&groupId=com.github.emmanuel-owusu&artifactId=shortlink&name=ShortLink&description=ShortLink%20is%20a%20URL%20shortening%20service&packageName=com.github.emmanuel-owusu.shortlink&dependencies=web)
+* [Java 21](https://www.oracle.com/java/technologies/downloads/#java21)
+
 [![Frameworks:java](https://skillicons.dev/icons?i=java)](https://www.oracle.com/java/)
 [![Frameworks:spring](https://skillicons.dev/icons?i=spring)](https://spring.io/)
 [![Frameworks:docker](https://skillicons.dev/icons?i=docker)](https://www.docker.com/)
 
-## Dependencies
-* Spring Boot 3.2.5
-* Spring Web
-* Java 21
+
 
 # Project Links
 * Author Profile - [github.com/emmanuel-owusu](https://github.com/emmanuel-owusu)
