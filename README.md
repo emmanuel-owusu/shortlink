@@ -29,8 +29,11 @@ $ curl http://localhost:8080/actuator/health
 
 The `/service/shortlink/encode` endpoint generated a shortened URL given a URL.
 ```zsh
-$ curl --get --data-urlencode "url=test" http://localhost:8080/service/shortlink/encode
+$ curl --get --data-urlencode "url=test" http://localhost:8080/service/shortlink/encode # TODO - use query param example from final application output
 ```
+
+
+
 The `/service/shortlink/decode` endpoint retrieves the original URL given a shortened URL.
 
 ```zsh
