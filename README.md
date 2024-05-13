@@ -9,34 +9,53 @@ ShortLink is a URL shortening service.
 ## Quick Start
 
 ### Run as Spring Application
-Follow these steps to run the ShortLink URL-shortening service as a standalone Spring application.
+This section guides developers on launching the ShortLink URL-shortening service as a standalone Spring application.
 
-* **(1) Clone the project repository**
-```console
+**Prerequisites:**
+
+* Git installed on your system
+* Java Development Kit (JDK) 11 or above
+
+**Steps:**
+1. **Clone the Project:**
+```bash
 git clone git@github.com:emmanuel-owusu/shortlink.git
 ```
-* **(2) Launch the application**
+2. **Build and Run the Application:**
 
-Perform the following command in a terminal from within the repository root directory.
-```console
+Navigate to the project root directory and execute the following command:
+```bash
 ./gradlew bootRun
 ```
-* **(3) Confirm the application is running**
-```console
+This command downloads dependencies, builds the application, and starts it as a Spring Boot application.
+
+3. **Verify Application Health (Optional):**
+  
+Once the application starts, you can verify its health using a tool like CURL:
+
+```bash
 curl http://localhost:8080/actuator/health
 ```
-* **(4) Send requests to the service**
+A successful response indicates the application is running properly.
+```json
+{
+  "status": "UP"
+}
+```
 
-The `/service/shortlink/encode` endpoint generates a shortened URL given a URL. You can test the `encode` endpoint by supplying a URI-encoded URL to query parameter `url`.
+4. **Using the ShortLink Service:**
 
-Similarly, you can perform this request by navigating to the following URL on a web browser: http://localhost:8080/service/shortlink/encode?url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FAstronomy.
+The ShortLink service exposes two main functionalities:
+  * **Encoding URLs (Shortening)**:
+    * The `/service/shortlink/encode` endpoint accepts a URL as a query parameter named `url`.
+    * The request should use URL encoding for the `url` parameter.
 
-**Example Encode Request**
-```console
+**Example Encode Request:**
+```bash
 curl --get --data-urlencode "url=https://en.wikipedia.org/wiki/Astronomy" http://localhost:8080/service/shortlink/encode
 ```
 
-**Example Encode Response**
+**Example Encode Response (JSON):**
 ```json
 {
   "data": {
@@ -47,16 +66,18 @@ curl --get --data-urlencode "url=https://en.wikipedia.org/wiki/Astronomy" http:/
   "status": "success"
 }
 ```
+  * **Decoding URLs (Expanding):**
+    * The `/service/shortlink/decode` endpoint accepts a shortened URL as a query parameter named `url`.
+    * The request should use URL encoding for the `url` parameter.
 
-The `/service/shortlink/decode` endpoint retrieves the original URL given a shortened URL. You can test the `decode` endpoint by supplying a URI-encoded shortened URL to query parameter `url`.
-
-Similarly, you can perform this request by navigating to the following URL on a web browser: http://localhost:8080/service/shortlink/decode?url=http%3A%2F%2Fshort.link%2F000000.
+  **Example Decode Request:**
 
 ```console
 curl --get --data-urlencode "url=http://short.link/000000" http://localhost:8080/service/shortlink/decode
 ```
 
-**Example Decode Response**
+**Example Decode Response (JSON):**
+
 ```json
 {
   "data": {
@@ -67,9 +88,12 @@ curl --get --data-urlencode "url=http://short.link/000000" http://localhost:8080
   "status": "success"
 }
 ```
+**Additional Notes:**
+
+* Replace http://short.link/000000 with the actual shortened URL returned by the service in your responses.
 
 ### Run as Docker Container
-Follow these steps to run the ShortLink URL-shortening service as a Docker container.
+This section guides developers on launching the ShortLink URL-shortening service as a Docker container.
 
 ## Built With
 * [Spring Boot 3.2.5 with Spring Web](https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.2.5&packaging=jar&jvmVersion=21&groupId=com.github.emmanuel-owusu&artifactId=shortlink&name=ShortLink&description=ShortLink%20is%20a%20URL%20shortening%20service&packageName=com.github.emmanuel-owusu.shortlink&dependencies=web)
