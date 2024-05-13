@@ -2,6 +2,9 @@ package com.github.emmanuelowusu.shortlink;
 
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,8 @@ import java.nio.charset.StandardCharsets;
 @RestController
 @RequestMapping("/service/shortlink")
 class ShortLinkController {
+
+    private static final Logger log = LoggerFactory.getLogger(ShortLinkController.class);
 
     @Autowired
     private URLShortenerService service;
@@ -60,21 +65,16 @@ class ShortLinkController {
         try {
             originalUrl = java.net.URLDecoder.decode(originalUrl, StandardCharsets.UTF_8.name());
         } catch (UnsupportedEncodingException e) {
-            // TODO - handle exception - controller advice
-            throw new IllegalArgumentException("The query parameter should be URI encoded");
-        }
-        String shortUrl = service.encode(originalUrl);
-        if (shortUrl == null) {
-            // TODO - handle error scenarios (e.g., invalid url)
-            return ResponseEntity.badRequest().body("Invalid URL provided");
+            JSONObject responseJson = new JSONObject();
+            responseJson.put("message", "The provided url could not be URI-decoded.");
+            responseJson.put("status", "error");
+            throw new IllegalArgumentException(responseJson.toString());
         }
 
-        // TODO - handle case - controller advice for when 'url' query parameter is not specified
-            // See org.springframework.web.bind.MissingServletRequestParameterException
-            // currently outputs:
-                // {"timestamp":"2024-05-12T21:30:15.913+00:00","status":400,"error":"Bad Request","path":"/service/shortlink/decode"}
+        String shortUrl = service.encode(originalUrl);
+
         String response = ShortLinkJsonResponseBuilder.buildEncodeSuccessResponse(originalUrl, shortUrl);
-        System.out.println(response); // TODO - add log statement
+        log.info(response);
         return ResponseEntity.ok(response);
     }
 
@@ -103,13 +103,8 @@ class ShortLinkController {
     @GetMapping(value = "/decode", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> decode(@Parameter(description = "The shortened URL to be expanded", required = true) @RequestParam("url") String shortenedUrl) {
         String originalUrl = service.decode(shortenedUrl);
-        if (originalUrl == null) {
-            // TODO - handle error scenarios (e.g., no original url for input; i.e., user never shortened this url)
-            return ResponseEntity.badRequest().build();
-        }
-
         String response = ShortLinkJsonResponseBuilder.buildDecodeSuccessResponse(originalUrl, shortenedUrl);
-        System.out.println(response); // TODO - add log statement
+        log.info(response);
         return ResponseEntity.ok(response);
     }
 

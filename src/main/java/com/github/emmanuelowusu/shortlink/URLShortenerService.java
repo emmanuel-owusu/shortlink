@@ -1,7 +1,10 @@
 package com.github.emmanuelowusu.shortlink;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,9 +44,17 @@ public class URLShortenerService {
      * @return
      */
     public String encode(String url) {
+        if(!isValidUrl(url)) {
+            JSONObject responseJson = new JSONObject();
+            responseJson.put("message", "Invalid URL format");
+            responseJson.put("status", "error");
+            throw new IllegalArgumentException(responseJson.toString());
+        }
+
         if (urlMap.containsKey(url)) {
             return urlMap.get(url); // Return existing short URL if present
         }
+
         String shortCode = generateShortCode();
         String shortUrl = PREFIX + shortCode;
         urlMap.put(url, shortUrl);
@@ -63,11 +74,30 @@ public class URLShortenerService {
      * @return
      */
     public String decode(String shortUrl) {
+        if(!isValidUrl(shortUrl)) {
+            JSONObject responseJson = new JSONObject();
+            responseJson.put("message", "Invalid URL format");
+            responseJson.put("status", "error");
+            throw new IllegalArgumentException(responseJson.toString());
+        }
+
         if (shortUrl.startsWith(PREFIX)) {
             String code = shortUrl.substring(PREFIX.length());
+
+            if(!shortCodeMap.containsKey(code)){
+                JSONObject responseJson = new JSONObject();
+                responseJson.put("message", "No URL found for the provided short URL.");
+                responseJson.put("status", "error");
+                throw new IllegalArgumentException(responseJson.toString());
+            }
+
             return shortCodeMap.get(code);
+        } {
+            JSONObject responseJson = new JSONObject();
+            responseJson.put("message", "Invalid short URL prefix.");
+            responseJson.put("status", "error");
+            throw new IllegalArgumentException(responseJson.toString());
         }
-        throw new IllegalArgumentException("Invalid short URL format");
     }
 
     /**
@@ -111,5 +141,26 @@ public class URLShortenerService {
         }
         return sb.toString();
     }
+
+    /**
+     * This method that checks if a string represents a valid URL format
+     * according to the IETF URL Resource Identifier Standard (RFC 3986)
+     * @param url - uniform resource locator (url) to be validate
+     * @return true if the value of 'url' represents a valid URL format
+     */
+    public static boolean isValidUrl(String url) {
+
+        if (url == null || url.isBlank()) { // Check for null or empty string
+            return false;
+        }
+
+        try {
+            URI uri = new URI(url); // Try creating a URI object
+            return uri.isAbsolute(); // Ensure it's an absolute URL
+        } catch (URISyntaxException e) { // Catch URI syntax exceptions
+            return false;
+        }
+    }
+
 
 }
