@@ -6,9 +6,19 @@
 ## About ShortLink
 ShortLink is a URL-shortening service.
 
-## Quick Start
+* [Quick Start](#quick-start)
+  * [Run as Spring Application](#run-as-spring-app)
+  * [Using the ShortLink Service](#using-the-shortlink-service)
+  * [Run Unit Tests](#run-unit-test)
+  * [Run as Docker Container](#run-as-docker-container)
+  * [Viewing the API Documentation](#api-documentaion)
+* [Additional Design Considerations](#design-considerations)
+* [Built With](#frameworks)
+* [Project Links](#project-links)
 
-### Run as Spring Application
+## Quick Start <a name="quick-start"></a>
+
+### Run as Spring Application <a name="run-as-spring-app"></a>
 This section guides developers on launching the ShortLink URL-shortening service as a standalone Spring application.
 
 **Prerequisites:**
@@ -43,10 +53,12 @@ A successful response indicates the application is running properly.
 }
 ```
 
-4. **Using the ShortLink Service:**
+Follow the steps in the '[Using the ShortLink Service](#using-the-shortlink-service)' section for more details on using the service once it's running.
+
+### Using the ShortLink Service <a name="using-the-shortlink-service"></a>
 
 The ShortLink service exposes two main functionalities:
-  * **Encoding URLs (Shortening)**:
+* **Encoding URLs (Shortening)**:
     * The `/service/shortlink/encode` endpoint accepts a URL as a query parameter named `url`.
     * The request should use URL encoding for the `url` parameter.
 
@@ -66,13 +78,13 @@ curl --get --data-urlencode "url=https://en.wikipedia.org/wiki/Astronomy" http:/
   "status": "success"
 }
 ```
-  * **Decoding URLs (Expanding):**
+* **Decoding URLs (Expanding):**
     * The `/service/shortlink/decode` endpoint accepts a shortened URL as a query parameter named `url`.
     * The request should use URL encoding for the `url` parameter.
 
-  **Example Decode Request:**
+**Example Decode Request:**
 
-```console
+```bash
 curl --get --data-urlencode "url=http://short.link/000000" http://localhost:8080/service/shortlink/decode
 ```
 
@@ -92,10 +104,78 @@ curl --get --data-urlencode "url=http://short.link/000000" http://localhost:8080
 
 * Replace http://short.link/000000 with the actual shortened URL returned by the service in your responses.
 
-### Run as Docker Container
-This section guides developers on launching the ShortLink URL-shortening service as a Docker container.
+### Run Unit Tests <a name="run-unit-test"></a>
+This project uses JUnit for unit testing. To run the tests, follow these steps:
 
-### Viewing the API Documentation
+1. **Prerequisites:**
+* Ensure you have Java installed and configured on your system. You can verify this by running `java -version` in your terminal.
+* Make sure you have Gradle set up for dependency management.
+
+2. **Run Tests:**
+
+* Open a terminal and navigate to your project directory.
+* Run `gradle test`:
+
+```bash
+./gradlew test
+```
+
+3. **View Results:**
+* The test results will be displayed in the terminal, indicating successful or failed tests and any associated error messages.
+* To view the HTML test result files, navigate to: `path_to_your_project/module_name/build/reports/tests/` directory.
+
+### Run as Docker Container <a name="run-as-docker-container"></a>
+Here's how to quickly build and run the ShortLink URL-shortening service in a Docker container:
+
+**Prerequisites:**
+
+* Docker installed on your system 
+  * Install: https://www.docker.com/products/docker-desktop/
+  * Check if installed: `docker --version`
+* Git installed on your system
+  * Install: https://git-scm.com/downloads
+  * Check if installed: `git --version`
+
+**Steps:**
+
+1. **Clone the Project:**
+```bash
+git clone git@github.com:emmanuel-owusu/shortlink.git
+```
+
+2. **Navigate to the Project Directory:**
+
+Navigate to the project root directory and execute the following command:
+```bash
+cd shortlink
+```
+
+3. **Build the Docker Image**:
+This builds a Docker image named `shortlink` based on the included Dockerfile:
+```bash
+docker build -t shortlink .
+```
+
+4. **Run the Application:**
+
+This starts a container from the shortlink image, exposes port 8080, and runs the application in the background:
+
+```bash
+docker run -d --name shortlink_container -p 8080:8080 shortlink
+```
+
+5. **Verify Application Health (Optional):**
+Once the container is running, you should be able to access the ShortLink service through your web browser at http://localhost:8080/actuator/health.
+
+A successful response indicates the application is running properly.
+```json
+{
+  "status": "UP"
+}
+```
+Follow the steps in the '[Using the ShortLink Service](#using-the-shortlink-service)' section for more details on using the service once it's running.
+
+### Viewing the API Documentation <a name="api-documentaion"></a>
 This API provides an interactive Swagger UI for exploring available endpoints and their details. To access the documentation:
 
 1. **Start the Application:** Ensure your Spring application is running.
@@ -110,7 +190,7 @@ The Swagger UI will display a comprehensive view of your API, including:
 
 This interactive documentation should provide a clear understanding of how to interact with the API and its functionalities.
 
-## Additional Design Considerations
+## Additional Design Considerations <a name="design-considerations"></a>
 This is a simple implementation for demonstration purposes. For a production-ready URL shortener, consider:
 
 * Persistence & Scalability: Store URL mappings in a scalable database like MySQL or Redis for high availability.
@@ -120,7 +200,7 @@ This is a simple implementation for demonstration purposes. For a production-rea
   * Implement rate limiting to avoid abuse.
   * Consider password protection for managing shortened links (optional).
 
-## Built With
+## Built With <a name="frameworks"></a>
 * [Spring Boot 3.2.5 with Spring Web](https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.2.5&packaging=jar&jvmVersion=21&groupId=com.github.emmanuel-owusu&artifactId=shortlink&name=ShortLink&description=ShortLink%20is%20a%20URL%20shortening%20service&packageName=com.github.emmanuel-owusu.shortlink&dependencies=web)
 * [Java 21](https://www.oracle.com/java/technologies/downloads/#java21)
 * [OpenAPI Specification (OAS) / Swagger](https://www.openapis.org/)
@@ -129,6 +209,7 @@ This is a simple implementation for demonstration purposes. For a production-rea
 [![Frameworks:java](https://skillicons.dev/icons?i=java)](https://www.oracle.com/java/)
 [![Frameworks:spring](https://skillicons.dev/icons?i=spring)](https://spring.io/)
 [![Frameworks:docker](https://skillicons.dev/icons?i=docker)](https://www.docker.com/)
-# Project Links
+
+## Project Links <a name="project-links"></a>
 * Author Profile - [github.com/emmanuel-owusu](https://github.com/emmanuel-owusu)
 * Code Repository - [https://github.com/emmanuel-owusu/shortlink](https://github.com/emmanuel-owusu/shortlink)
