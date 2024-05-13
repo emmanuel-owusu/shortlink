@@ -4,7 +4,7 @@
 [![license-badge](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 ## About ShortLink
-ShortLink is a URL shortening service.
+ShortLink is a URL-shortening service.
 
 ## Quick Start
 
