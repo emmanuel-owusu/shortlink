@@ -27,6 +27,9 @@ class ShortLinkController {
     /**
      * Encode (Shorten URL)
      *
+     * The GET '/service/shortlink/encode' endpoint encodes a URL to a shortened URL.
+     * @see com.github.emmanuelowusu.shortlink.URLShortenerService for implementation details on the URL shortener algorithm
+     *
      * Please note that the URL passed as query parameter 'url' should be URI encoded.
      * This design choice is for several reasons: (1) Standardization: URI encoding
      * ensures that special characters in the URL are interpreted correctly.
@@ -77,6 +80,9 @@ class ShortLinkController {
 
     /**
      * Decode (Retrieve URL)
+     *
+     * The GET '/service/shortlink/decode' endpoint decodes a shortened URL to its original URL.
+     * @see com.github.emmanuelowusu.shortlink.URLShortenerService for implementation details on the URL shortener algorithm
      *
      * Please note that the URL passed as query parameter 'url' should be URI encoded.
      * See com.github.emmanuelowusu.shortlink.ShortLinkController.encode() for more details.

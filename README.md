@@ -110,7 +110,7 @@ The Swagger UI will display a comprehensive view of your API, including:
 
 This interactive documentation should provide a clear understanding of how to interact with the API and its functionalities.
 
-## Additional Design Consideration
+## Additional Design Considerations
 This is a simple implementation for demonstration purposes. For a production-ready URL shortener, consider:
 
 * Persistence & Scalability: Store URL mappings in a scalable database like MySQL or Redis for high availability.
