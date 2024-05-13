@@ -7,8 +7,12 @@
 ShortLink is a URL-shortening service.
 
 ## Quick Start
+* [Run as Spring Application](#run-as-spring-app)
+* [Using the ShortLink Service](#using-the-shortlink-service)
+* [Run Unit Tests](#run-unit-test)
+* [Run as Docker Container](#run-as-docker-container)
 
-### Run as Spring Application
+### Run as Spring Application <a name="run-as-spring-app"></a>
 This section guides developers on launching the ShortLink URL-shortening service as a standalone Spring application.
 
 **Prerequisites:**
@@ -43,57 +47,6 @@ A successful response indicates the application is running properly.
 }
 ```
 
-Follow the steps in the '[Using the ShortLink Service](#using-the-shortlink-service)' section for more details on using the service once it's running.
-
-### Run as Docker Container
-Here's how to quickly build and run the ShortLink URL-shortening service in a Docker container:
-
-**Prerequisites:**
-
-* Docker installed on your system 
-  * Install: https://www.docker.com/products/docker-desktop/
-  * Check if installed: `docker --version`
-* Git installed on your system
-  * Install: https://git-scm.com/downloads
-  * Check if installed: `git --version`
-
-**Steps:**
-
-1. **Clone the Project:**
-```bash
-git clone git@github.com:emmanuel-owusu/shortlink.git
-```
-
-2. **Navigate to the Project Directory:**
-
-Navigate to the project root directory and execute the following command:
-```bash
-cd shortlink
-```
-
-3. **Build the Docker Image**:
-This builds a Docker image named `shortlink` based on the included Dockerfile:
-```bash
-docker build -t shortlink .
-```
-
-4. **Run the Application:**
-
-This starts a container from the shortlink image, exposes port 8080, and runs the application in the background:
-
-```bash
-docker run -d --name shortlink_container -p 8080:8080 shortlink
-```
-
-5. **Verify Application Health (Optional):**
-Once the container is running, you should be able to access the ShortLink service through your web browser at http://localhost:8080/actuator/health.
-
-A successful response indicates the application is running properly.
-```json
-{
-  "status": "UP"
-}
-```
 Follow the steps in the '[Using the ShortLink Service](#using-the-shortlink-service)' section for more details on using the service once it's running.
 
 ### Using the ShortLink Service <a name="using-the-shortlink-service"></a>
@@ -145,7 +98,7 @@ curl --get --data-urlencode "url=http://short.link/000000" http://localhost:8080
 
 * Replace http://short.link/000000 with the actual shortened URL returned by the service in your responses.
 
-### Running Unit Tests
+### Run Unit Tests <a name="run-unit-test"></a>
 This project uses JUnit for unit testing. To run the tests, follow these steps:
 
 1. **Prerequisites:**
@@ -159,6 +112,57 @@ This project uses JUnit for unit testing. To run the tests, follow these steps:
 
 3. **View Results:**
 * The test results will be displayed in the terminal, indicating successful or failed tests and any associated error messages.
+
+### Run as Docker Container <a name="run-as-docker-container"></a>
+Here's how to quickly build and run the ShortLink URL-shortening service in a Docker container:
+
+**Prerequisites:**
+
+* Docker installed on your system 
+  * Install: https://www.docker.com/products/docker-desktop/
+  * Check if installed: `docker --version`
+* Git installed on your system
+  * Install: https://git-scm.com/downloads
+  * Check if installed: `git --version`
+
+**Steps:**
+
+1. **Clone the Project:**
+```bash
+git clone git@github.com:emmanuel-owusu/shortlink.git
+```
+
+2. **Navigate to the Project Directory:**
+
+Navigate to the project root directory and execute the following command:
+```bash
+cd shortlink
+```
+
+3. **Build the Docker Image**:
+This builds a Docker image named `shortlink` based on the included Dockerfile:
+```bash
+docker build -t shortlink .
+```
+
+4. **Run the Application:**
+
+This starts a container from the shortlink image, exposes port 8080, and runs the application in the background:
+
+```bash
+docker run -d --name shortlink_container -p 8080:8080 shortlink
+```
+
+5. **Verify Application Health (Optional):**
+Once the container is running, you should be able to access the ShortLink service through your web browser at http://localhost:8080/actuator/health.
+
+A successful response indicates the application is running properly.
+```json
+{
+  "status": "UP"
+}
+```
+Follow the steps in the '[Using the ShortLink Service](#using-the-shortlink-service)' section for more details on using the service once it's running.
 
 ### Viewing the API Documentation
 This API provides an interactive Swagger UI for exploring available endpoints and their details. To access the documentation:
