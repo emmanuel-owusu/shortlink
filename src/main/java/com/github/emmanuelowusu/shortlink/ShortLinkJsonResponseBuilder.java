@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Utility class for building JSON response objects for the ShortLink service.
+ * This class provides methods to create well-formatted JSON responses for successful encoding and decoding operations.
+ *
+ * The `@ResponseBody` annotation ensures the methods return the constructed JSON string as the response body.
  */
 @ResponseBody
 public class ShortLinkJsonResponseBuilder {
