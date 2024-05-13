@@ -6,11 +6,17 @@
 ## About ShortLink
 ShortLink is a URL-shortening service.
 
-## Quick Start
-* [Run as Spring Application](#run-as-spring-app)
-* [Using the ShortLink Service](#using-the-shortlink-service)
-* [Run Unit Tests](#run-unit-test)
-* [Run as Docker Container](#run-as-docker-container)
+* [Quick Start](#quick-start)
+  * [Run as Spring Application](#run-as-spring-app)
+  * [Using the ShortLink Service](#using-the-shortlink-service)
+  * [Run Unit Tests](#run-unit-test)
+  * [Run as Docker Container](#run-as-docker-container)
+  * [Viewing the API Documentation](#api-documentaion)
+* [Additional Design Considerations](#design-considerations)
+* [Built With](#frameworks)
+* [Project Links](#project-links)
+
+## Quick Start <a name="quick-start"></a>
 
 ### Run as Spring Application <a name="run-as-spring-app"></a>
 This section guides developers on launching the ShortLink URL-shortening service as a standalone Spring application.
@@ -169,7 +175,7 @@ A successful response indicates the application is running properly.
 ```
 Follow the steps in the '[Using the ShortLink Service](#using-the-shortlink-service)' section for more details on using the service once it's running.
 
-### Viewing the API Documentation
+### Viewing the API Documentation <a name="api-documentaion"></a>
 This API provides an interactive Swagger UI for exploring available endpoints and their details. To access the documentation:
 
 1. **Start the Application:** Ensure your Spring application is running.
@@ -184,7 +190,7 @@ The Swagger UI will display a comprehensive view of your API, including:
 
 This interactive documentation should provide a clear understanding of how to interact with the API and its functionalities.
 
-## Additional Design Considerations
+## Additional Design Considerations <a name="design-considerations"></a>
 This is a simple implementation for demonstration purposes. For a production-ready URL shortener, consider:
 
 * Persistence & Scalability: Store URL mappings in a scalable database like MySQL or Redis for high availability.
@@ -194,7 +200,7 @@ This is a simple implementation for demonstration purposes. For a production-rea
   * Implement rate limiting to avoid abuse.
   * Consider password protection for managing shortened links (optional).
 
-## Built With
+## Built With <a name="frameworks"></a>
 * [Spring Boot 3.2.5 with Spring Web](https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.2.5&packaging=jar&jvmVersion=21&groupId=com.github.emmanuel-owusu&artifactId=shortlink&name=ShortLink&description=ShortLink%20is%20a%20URL%20shortening%20service&packageName=com.github.emmanuel-owusu.shortlink&dependencies=web)
 * [Java 21](https://www.oracle.com/java/technologies/downloads/#java21)
 * [OpenAPI Specification (OAS) / Swagger](https://www.openapis.org/)
@@ -203,6 +209,7 @@ This is a simple implementation for demonstration purposes. For a production-rea
 [![Frameworks:java](https://skillicons.dev/icons?i=java)](https://www.oracle.com/java/)
 [![Frameworks:spring](https://skillicons.dev/icons?i=spring)](https://spring.io/)
 [![Frameworks:docker](https://skillicons.dev/icons?i=docker)](https://www.docker.com/)
-# Project Links
+
+## Project Links <a name="project-links"></a>
 * Author Profile - [github.com/emmanuel-owusu](https://github.com/emmanuel-owusu)
 * Code Repository - [https://github.com/emmanuel-owusu/shortlink](https://github.com/emmanuel-owusu/shortlink)
