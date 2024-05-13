@@ -110,6 +110,16 @@ The Swagger UI will display a comprehensive view of your API, including:
 
 This interactive documentation should provide a clear understanding of how to interact with the API and its functionalities.
 
+## Additional Design Consideration
+This is a simple implementation for demonstration purposes. For a production-ready URL shortener, consider:
+
+* Persistence & Scalability: Store URL mappings in a scalable database like MySQL or Redis for high availability.
+* Conflict Resolution: Implement strategies like adding random characters to the shortcode to handle collisions during generation.
+* Security:
+  * Validate user input to prevent malicious URLs.
+  * Implement rate limiting to avoid abuse.
+  * Consider password protection for managing shortened links (optional).
+
 ## Built With
 * [Spring Boot 3.2.5 with Spring Web](https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.2.5&packaging=jar&jvmVersion=21&groupId=com.github.emmanuel-owusu&artifactId=shortlink&name=ShortLink&description=ShortLink%20is%20a%20URL%20shortening%20service&packageName=com.github.emmanuel-owusu.shortlink&dependencies=web)
 * [Java 21](https://www.oracle.com/java/technologies/downloads/#java21)
