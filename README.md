@@ -95,6 +95,21 @@ curl --get --data-urlencode "url=http://short.link/000000" http://localhost:8080
 ### Run as Docker Container
 This section guides developers on launching the ShortLink URL-shortening service as a Docker container.
 
+### Running Unit Tests
+This project uses JUnit for unit testing. To run the tests, follow these steps:
+
+1. **Prerequisites:**
+* Ensure you have Java installed and configured on your system. You can verify this by running `java -version` in your terminal.
+* Make sure you have Gradle set up for dependency management.
+
+2. **Run Tests:**
+
+* Open a terminal and navigate to your project directory.
+* Run `gradle test`
+
+3. **View Results:**
+* The test results will be displayed in the terminal, indicating successful or failed tests and any associated error messages.
+
 ### Viewing the API Documentation
 This API provides an interactive Swagger UI for exploring available endpoints and their details. To access the documentation:
 
