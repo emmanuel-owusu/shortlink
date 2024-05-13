@@ -95,14 +95,30 @@ curl --get --data-urlencode "url=http://short.link/000000" http://localhost:8080
 ### Run as Docker Container
 This section guides developers on launching the ShortLink URL-shortening service as a Docker container.
 
+### Viewing the API Documentation
+This API provides an interactive Swagger UI for exploring available endpoints and their details. To access the documentation:
+
+1. **Start the Application:** Ensure your Spring application is running.
+2. **Open the Swagger UI:** Navigate to http://localhost:8080/swagger-ui/index.html in your web browser, replacing port `8080` with the port your application is running on (usually 8080 by default).
+
+The Swagger UI will display a comprehensive view of your API, including:
+
+* **List of Endpoints:** Explore all available API endpoints with clear descriptions.
+* **Detailed Information:** View detailed information for each endpoint, including request parameters, response structures, and supported HTTP methods.
+* **Interactive Testing:** The UI allows you to directly test API calls with various parameters and view the corresponding responses.
+
+
+This interactive documentation should provide a clear understanding of how to interact with the API and its functionalities.
+
 ## Built With
 * [Spring Boot 3.2.5 with Spring Web](https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.2.5&packaging=jar&jvmVersion=21&groupId=com.github.emmanuel-owusu&artifactId=shortlink&name=ShortLink&description=ShortLink%20is%20a%20URL%20shortening%20service&packageName=com.github.emmanuel-owusu.shortlink&dependencies=web)
 * [Java 21](https://www.oracle.com/java/technologies/downloads/#java21)
+* [OpenAPI Specification (OAS) / Swagger](https://www.openapis.org/)
+* [Docker](https://www.docker.com/)
 
 [![Frameworks:java](https://skillicons.dev/icons?i=java)](https://www.oracle.com/java/)
 [![Frameworks:spring](https://skillicons.dev/icons?i=spring)](https://spring.io/)
 [![Frameworks:docker](https://skillicons.dev/icons?i=docker)](https://www.docker.com/)
-
 # Project Links
 * Author Profile - [github.com/emmanuel-owusu](https://github.com/emmanuel-owusu)
 * Code Repository - [https://github.com/emmanuel-owusu/shortlink](https://github.com/emmanuel-owusu/shortlink)

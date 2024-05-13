@@ -1,5 +1,7 @@
 package com.github.emmanuelowusu.shortlink;
 
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -36,8 +42,18 @@ class ShortLinkController {
      * @param originalUrl - URL to be shortened (URI encoded)
      * @return response containing the shortened URL (or a message in the case where the request cannot be resolved)
      */
+    @Operation(summary = "Encodes a long URL to a shortened URL.",
+            description = "This endpoint takes a URI-encoded URL as input and returns a shortened version of the URL.")
+    @ApiResponse(responseCode = "200", content = @Content(examples = {
+            @ExampleObject(name = "encode",
+                    summary = "Successful Encode (Shortening)",
+                    description = "URL shortened successfully",
+                    value = "{\"data\":{\"original_url\":\"https://en.wikipedia.org/wiki/Astronomy\"," +
+                            "\"short_url\":\"http://short.link/000000\"},\"message\":\"URL shortened successfully.\",\"status\":\"success\"}"
+            )
+    }, mediaType = MediaType.APPLICATION_JSON_VALUE))
     @GetMapping(value = "/encode", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> encode(@RequestParam("url") String originalUrl) {
+    public ResponseEntity<String> encode(@Parameter(description = "The URL to be shortened", required = true) @RequestParam("url") String originalUrl) {
         try {
             originalUrl = java.net.URLDecoder.decode(originalUrl, StandardCharsets.UTF_8.name());
         } catch (UnsupportedEncodingException e) {
@@ -47,10 +63,10 @@ class ShortLinkController {
         String shortUrl = service.encode(originalUrl);
         if (shortUrl == null) {
             // TODO - handle error scenarios (e.g., invalid url)
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Invalid URL provided");
         }
 
-        // TODO - handle case - controller advice for when 'url' query paramter is not specified
+        // TODO - handle case - controller advice for when 'url' query parameter is not specified
             // See org.springframework.web.bind.MissingServletRequestParameterException
             // currently outputs:
                 // {"timestamp":"2024-05-12T21:30:15.913+00:00","status":400,"error":"Bad Request","path":"/service/shortlink/decode"}
@@ -68,8 +84,18 @@ class ShortLinkController {
      * @param shortenedUrl - shortened URL used to retrieve the corresponding original URL
      * @return response containing the shortened URL (or a message in the case where the request cannot be resolved)
      */
+    @Operation(summary = "Decodes a shortened URL to its original URL.",
+            description = "This endpoint takes a URI-encoded shortened URL as input and returns an original version of the URL.")
+    @ApiResponse(responseCode = "200", content = @Content(examples = {
+            @ExampleObject(name = "encode",
+                    summary = "Successful Decode (Expanding)",
+                    description = "Original URL retrieved successfully.",
+                    value = "{\"data\":{\"original_url\":\"https://en.wikipedia.org/wiki/Astronomy\"," +
+                            "\"short_url\":\"http://short.link/000000\"},\"message\":\"original URL retrieved successfully.\",\"status\":\"success\"}"
+            )
+    }, mediaType = MediaType.APPLICATION_JSON_VALUE))
     @GetMapping(value = "/decode", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> decode(@RequestParam("url") String shortenedUrl) {
+    public ResponseEntity<String> decode(@Parameter(description = "The shortened URL to be expanded", required = true) @RequestParam("url") String shortenedUrl) {
         String originalUrl = service.decode(shortenedUrl);
         if (originalUrl == null) {
             // TODO - handle error scenarios (e.g., no original url for input; i.e., user never shortened this url)
