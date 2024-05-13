@@ -78,7 +78,7 @@ curl --get --data-urlencode "url=https://en.wikipedia.org/wiki/Astronomy" http:/
 
 **Example Decode Request:**
 
-```console
+```bash
 curl --get --data-urlencode "url=http://short.link/000000" http://localhost:8080/service/shortlink/decode
 ```
 
@@ -108,10 +108,15 @@ This project uses JUnit for unit testing. To run the tests, follow these steps:
 2. **Run Tests:**
 
 * Open a terminal and navigate to your project directory.
-* Run `gradle test`
+* Run `gradle test`:
+
+```bash
+./gradlew test
+```
 
 3. **View Results:**
 * The test results will be displayed in the terminal, indicating successful or failed tests and any associated error messages.
+* To view the HTML test result files, navigate to: `path_to_your_project/module_name/build/reports/tests/` directory.
 
 ### Run as Docker Container <a name="run-as-docker-container"></a>
 Here's how to quickly build and run the ShortLink URL-shortening service in a Docker container:
