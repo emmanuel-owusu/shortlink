@@ -43,10 +43,63 @@ A successful response indicates the application is running properly.
 }
 ```
 
-4. **Using the ShortLink Service:**
+Follow the steps in the '[Using the ShortLink Service](#using-the-shortlink-service)' section for more details on using the service once it's running.
+
+### Run as Docker Container
+Here's how to quickly build and run the ShortLink URL-shortening service in a Docker container:
+
+**Prerequisites:**
+
+* Docker installed on your system 
+  * Install: https://www.docker.com/products/docker-desktop/
+  * Check if installed: `docker --version`
+* Git installed on your system
+  * Install: https://git-scm.com/downloads
+  * Check if installed: `git --version`
+
+**Steps:**
+
+1. **Clone the Project:**
+```bash
+git clone git@github.com:emmanuel-owusu/shortlink.git
+```
+
+2. **Navigate to the Project Directory:**
+
+Navigate to the project root directory and execute the following command:
+```bash
+cd shortlink
+```
+
+3. **Build the Docker Image**:
+This builds a Docker image named `shortlink` based on the included Dockerfile:
+```bash
+docker build -t shortlink .
+```
+
+4. **Run the Application:**
+
+This starts a container from the shortlink image, exposes port 8080, and runs the application in the background:
+
+```bash
+docker run -d --name shortlink_container -p 8080:8080 shortlink
+```
+
+5. **Verify Application Health (Optional):**
+Once the container is running, you should be able to access the ShortLink service through your web browser at http://localhost:8080/actuator/health.
+
+A successful response indicates the application is running properly.
+```json
+{
+  "status": "UP"
+}
+```
+Follow the steps in the '[Using the ShortLink Service](#using-the-shortlink-service)' section for more details on using the service once it's running.
+
+### Using the ShortLink Service <a name="using-the-shortlink-service"></a>
 
 The ShortLink service exposes two main functionalities:
-  * **Encoding URLs (Shortening)**:
+* **Encoding URLs (Shortening)**:
     * The `/service/shortlink/encode` endpoint accepts a URL as a query parameter named `url`.
     * The request should use URL encoding for the `url` parameter.
 
@@ -66,11 +119,11 @@ curl --get --data-urlencode "url=https://en.wikipedia.org/wiki/Astronomy" http:/
   "status": "success"
 }
 ```
-  * **Decoding URLs (Expanding):**
+* **Decoding URLs (Expanding):**
     * The `/service/shortlink/decode` endpoint accepts a shortened URL as a query parameter named `url`.
     * The request should use URL encoding for the `url` parameter.
 
-  **Example Decode Request:**
+**Example Decode Request:**
 
 ```console
 curl --get --data-urlencode "url=http://short.link/000000" http://localhost:8080/service/shortlink/decode
@@ -91,9 +144,6 @@ curl --get --data-urlencode "url=http://short.link/000000" http://localhost:8080
 **Additional Notes:**
 
 * Replace http://short.link/000000 with the actual shortened URL returned by the service in your responses.
-
-### Run as Docker Container
-This section guides developers on launching the ShortLink URL-shortening service as a Docker container.
 
 ### Running Unit Tests
 This project uses JUnit for unit testing. To run the tests, follow these steps:
