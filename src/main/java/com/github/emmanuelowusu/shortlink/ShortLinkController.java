@@ -33,18 +33,18 @@ class ShortLinkController {
      * Unencoded URLs with special characters might be misinterpreted by the server,
      * leading to errors. Thus, URI encoding ensures the URL remains intact during transmission.
      *
-     * @param url - URL to be shortened (URI encoded)
+     * @param originalUrl - URL to be shortened (URI encoded)
      * @return response containing the shortened URL (or a message in the case where the request cannot be resolved)
      */
     @GetMapping(value = "/encode", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> encode(@RequestParam("url") String url) {
+    public ResponseEntity<String> encode(@RequestParam("url") String originalUrl) {
         try {
-            url = java.net.URLDecoder.decode(url, StandardCharsets.UTF_8.name());
+            originalUrl = java.net.URLDecoder.decode(originalUrl, StandardCharsets.UTF_8.name());
         } catch (UnsupportedEncodingException e) {
             // TODO - handle exception - controller advice
             throw new IllegalArgumentException("The query parameter should be URI encoded");
         }
-        String shortUrl = service.encode(url);
+        String shortUrl = service.encode(originalUrl);
         if (shortUrl == null) {
             // TODO - handle error scenarios (e.g., invalid url)
             return ResponseEntity.badRequest().build();
@@ -54,7 +54,7 @@ class ShortLinkController {
             // See org.springframework.web.bind.MissingServletRequestParameterException
             // currently outputs:
                 // {"timestamp":"2024-05-12T21:30:15.913+00:00","status":400,"error":"Bad Request","path":"/service/shortlink/decode"}
-        String response = ShortLinkJsonResponseBuilder.buildEncodeSuccessResponse(url, shortUrl);
+        String response = ShortLinkJsonResponseBuilder.buildEncodeSuccessResponse(originalUrl, shortUrl);
         System.out.println(response); // TODO - add log statement
         return ResponseEntity.ok(response);
     }
@@ -62,18 +62,21 @@ class ShortLinkController {
     /**
      * Decode (Retrieve URL)
      *
-     * @param url - shortened URL used to retrieve the corresponding original URL
+     * Please note that the URL passed as query parameter 'url' should be URI encoded.
+     * See com.github.emmanuelowusu.shortlink.ShortLinkController.encode() for more details.
+     *
+     * @param shortenedUrl - shortened URL used to retrieve the corresponding original URL
      * @return response containing the shortened URL (or a message in the case where the request cannot be resolved)
      */
     @GetMapping(value = "/decode", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> decode(@RequestParam("url") String url) {
-        String originalUrl = service.decode(url);
+    public ResponseEntity<String> decode(@RequestParam("url") String shortenedUrl) {
+        String originalUrl = service.decode(shortenedUrl);
         if (originalUrl == null) {
             // TODO - handle error scenarios (e.g., no original url for input; i.e., user never shortened this url)
             return ResponseEntity.badRequest().build();
         }
 
-        String response = ShortLinkJsonResponseBuilder.buildDecodeSuccessResponse(url, originalUrl);
+        String response = ShortLinkJsonResponseBuilder.buildDecodeSuccessResponse(originalUrl, shortenedUrl);
         System.out.println(response); // TODO - add log statement
         return ResponseEntity.ok(response);
     }
